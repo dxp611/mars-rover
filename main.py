@@ -20,11 +20,19 @@ def deploy_robot(matrix, robot):
   matrix[robot.y][robot.x] = robot.orientation
 
 def update_robot_position(matrix, old_x, old_y, robot=None):
-  matrix[old_y][old_x] = 0
   if robot:
+    matrix[old_y][old_x] = 0
     matrix[robot.y][robot.x] = robot.orientation
+  else:
+    matrix[old_y][old_x] = "L"
 
 def move_robot(robot, matrix, m, n, commands):
+  
+  def lost_robot(robot, matrix, old_x, old_y):
+    print('Robot is lost!')
+    robot.set_lost()
+    update_robot_position(matrix, old_x, old_y)
+    
   for command in commands:
     if command == 'F':
       old_x = robot.x
@@ -34,14 +42,42 @@ def move_robot(robot, matrix, m, n, commands):
         if 0 <= new_y < m:
           robot.move_forward()
           update_robot_position(matrix, old_x, old_y, robot)
+          
         else:
-          print('Robot is lost!')
-          robot.set_lost()
-          update_robot_position(matrix, old_x, old_y)
+          lost_robot(robot, matrix, old_x, old_y)
           break
+      elif robot.orientation == 'E':
+        new_x = robot.x + 1
+        if 0 <= new_x < n:
+          robot.move_forward()
+          update_robot_position(matrix, old_x, old_y, robot)
+        else:
+          lost_robot(robot, matrix, old_x, old_y)
+          break
+      elif robot.orientation == 'S':
+        new_y = robot.y - 1
+        if 0 <= new_y < n:
+          robot.move_forward()
+          update_robot_position(matrix, old_x, old_y, robot)
+        else:
+          lost_robot(robot, matrix, old_x, old_y)
+          break
+      elif robot.orientation == 'W':
+        new_x = robot.x - 1
+        if 0 <= new_x < n:
+          robot.move_forward()
+          update_robot_position(matrix, old_x, old_y, robot)
+        else:
+          lost_robot(robot, matrix, old_x, old_y)
+          break
+    print("Robot performed: {}".format(command))
+    print_matrix(matrix, m, n)
 
 
 def main():
+  # m = int(input("Rows:"))
+  # n = int(input("Columns:"))
+
   m = 4
   n = 8
   
@@ -49,7 +85,7 @@ def main():
   m +=1
   n +=1 
   
-  robot1_initial_state = (0, 4, 'N')
+  robot1_initial_state = (2, 2, 'W')
   robot_moves = 'FF'
 
   mars = build_matrix(m, n)
