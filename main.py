@@ -109,6 +109,6 @@ def process_input(inputs):
   return m, n, robots
 
 if __name__ == "__main__":
-  inputs=[4, 8, ((2, 3, 'E'), 'LFRFF'), ((0, 2, 'N'), 'FFLFRFF')]
+  inputs=[4, 8, ((2, 3, 'E'), 'LFRFF'), ((0, 2, 'N'), 'FFLFRFF'), ((2, 3, 'N'), 'FLLFR'), ((1, 0, 'S'), 'FFRLF')]
   m, n, robots = process_input(inputs)
   main(m, n, robots)
