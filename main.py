@@ -80,27 +80,17 @@ def move_robot(robot, matrix, m, n, commands):
     print("Robot performed: {}".format(command))
     print_matrix(matrix, m, n)
 
-def main():
-  # m = int(input("Rows:"))
-  # n = int(input("Columns:"))
-
-  m = 4
-  n = 8
-  
+def main(m, n, robot1_initial_state, robot_moves):
   # +1 matrix size to allow the robots to reach the top of the matrix
   m +=1
   n +=1 
-  
-  robot1_initial_state = (2, 3, 'E')
-  robot_moves = 'LFRFF'
 
   mars = build_matrix(m, n)
-  
-  print("Initial matrix:")
 
   robot1 = Robot(*robot1_initial_state)
   initialise_robot(mars, robot1)
 
+  print("Initial matrix:")
   print_matrix(mars, m, n)
   move_robot(robot1, mars, m, n, robot_moves)
   
@@ -109,4 +99,8 @@ def main():
   print("Robot final state:", robot1.get_state())
 
 if __name__ == "__main__":
-  main()
+  m = 4
+  n = 8
+  robot1_initial_state = (1, 0, 'S')
+  robot_moves = 'FFRLF'
+  main(m, n, robot1_initial_state, robot_moves)
