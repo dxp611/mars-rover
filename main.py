@@ -11,7 +11,7 @@ def build_matrix(m, n):
   return matrix
 
 def print_matrix(matrix, m, n):
-  for row in range(m):
+  for row in range(m - 1, -1, -1):
     for column in range(n):
       print(matrix[row][column], end=" ")
     print()
