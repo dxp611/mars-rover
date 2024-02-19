@@ -19,6 +19,18 @@ def print_matrix(matrix, m, n):
 def deploy_robot(matrix, robot):
   matrix[robot.y][robot.x] = robot.orientation
 
+def update_robot_position(matrix, old_x, old_y, robot):
+  matrix[old_y][old_x] = 0
+  matrix[robot.y][robot.x] = robot.orientation
+
+def move_robot(robot, matrix, m, n, commands):
+  for command in commands:
+    if command == 'F':
+      old_x = robot.x
+      old_y = robot.y
+      robot.move_forward()
+      update_robot_position(matrix, old_x, old_y, robot)
+
 def main():
   m = 4
   n = 8
@@ -33,10 +45,13 @@ def main():
   mars = build_matrix(m, n)
   
   print("Initial matrix:")
-  print_matrix(mars, m, n)
 
   robot1 = Robot(*robot1_initial_state)
-  matrix = deploy_robot(mars, robot1)
+  deploy_robot(mars, robot1)
+
+  print_matrix(mars, m, n)
+  move_robot(robot1, mars, m, n, robot_moves)
+  
   print("Final matrix:")
   print_matrix(mars, m, n)
 
