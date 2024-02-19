@@ -96,11 +96,12 @@ def main(m, n, robot1_initial_state, robot_moves):
   
   print("Final matrix:")
   print_matrix(mars, m, n)
-  print("Robot final state:", robot1.get_state())
+def process_input(inputs):
+  m, n = inputs[0], inputs[1]
+  robots = inputs[2:]
+  return m, n, robots
 
 if __name__ == "__main__":
-  m = 4
-  n = 8
-  robot1_initial_state = (1, 0, 'S')
-  robot_moves = 'FFRLF'
-  main(m, n, robot1_initial_state, robot_moves)
+  inputs=[4, 8, ((2, 3, 'E'), 'LFRFF'), ((0, 2, 'N'), 'FFLFRFF')]
+  m, n, robots = process_input(inputs)
+  main(m, n, robots)
