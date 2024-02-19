@@ -22,6 +22,11 @@ def deploy_robot(matrix, robot):
 def main():
   m = 4
   n = 8
+  
+  # +1 matrix size to allow the robots to reach the top of the matrix
+  m +=1
+  n +=1 
+  
   robot1_initial_state = (0, 2, 'E')
   robot_moves = 'FLFRFF'
 
