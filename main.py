@@ -106,6 +106,7 @@ def main():
   
   print("Final matrix:")
   print_matrix(mars, m, n)
+  print("Robot final state:", robot1.get_state())
 
 if __name__ == "__main__":
   main()

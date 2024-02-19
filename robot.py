@@ -25,3 +25,9 @@ class Robot:
 
   def set_lost(self):
     self.lost = True
+
+  def get_state(self):
+    res = "({}, {}, {})".format(self.x, self.y, self.orientation)
+    if self.lost:
+      res += ' LOST'
+    return res 
