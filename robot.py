@@ -15,5 +15,13 @@ class Robot:
     if self.orientation == 'W':
       self.x -= 1
   
+  def rotate_left(self):
+    rotate_left_map = {'N': 'W', 'W': 'S', 'S': 'E', 'E': 'N'}
+    self.orientation = rotate_left_map[self.orientation]
+  
+  def rotate_right(self):
+    rotate_right_map = {'N': 'E', 'E': 'S', 'S': 'W', 'W': 'N'}
+    self.orientation = rotate_right_map[self.orientation]
+
   def set_lost(self):
     self.lost = True

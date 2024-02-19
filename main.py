@@ -16,7 +16,7 @@ def print_matrix(matrix, m, n):
       print(matrix[row][column], end=" ")
     print()
 
-def deploy_robot(matrix, robot):
+def initialise_robot(matrix, robot):
   matrix[robot.y][robot.x] = robot.orientation
 
 def update_robot_position(matrix, old_x, old_y, robot=None):
@@ -70,9 +70,15 @@ def move_robot(robot, matrix, m, n, commands):
         else:
           lost_robot(robot, matrix, old_x, old_y)
           break
+    elif command == 'L':
+      robot.rotate_left()
+      initialise_robot(matrix, robot)
+    elif command == 'R':
+      robot.rotate_right()
+      initialise_robot(matrix, robot)
+
     print("Robot performed: {}".format(command))
     print_matrix(matrix, m, n)
-
 
 def main():
   # m = int(input("Rows:"))
@@ -85,15 +91,15 @@ def main():
   m +=1
   n +=1 
   
-  robot1_initial_state = (2, 2, 'W')
-  robot_moves = 'FF'
+  robot1_initial_state = (2, 3, 'E')
+  robot_moves = 'LFRFF'
 
   mars = build_matrix(m, n)
   
   print("Initial matrix:")
 
   robot1 = Robot(*robot1_initial_state)
-  deploy_robot(mars, robot1)
+  initialise_robot(mars, robot1)
 
   print_matrix(mars, m, n)
   move_robot(robot1, mars, m, n, robot_moves)
