@@ -80,22 +80,29 @@ def move_robot(robot, matrix, m, n, commands):
     print("Robot performed: {}".format(command))
     print_matrix(matrix, m, n)
 
-def main(m, n, robot1_initial_state, robot_moves):
+def main(m, n, robots):
   # +1 matrix size to allow the robots to reach the top of the matrix
   m +=1
   n +=1 
 
   mars = build_matrix(m, n)
+  deployed_robots =[]
+  for initial_state, commands in robots:
+    robot = Robot(*initial_state)
+    initialise_robot(mars, robot)
 
-  robot1 = Robot(*robot1_initial_state)
-  initialise_robot(mars, robot1)
+    print("Initial matrix:")
+    print_matrix(mars, m, n)
+    move_robot(robot, mars, m, n, commands)
 
-  print("Initial matrix:")
-  print_matrix(mars, m, n)
-  move_robot(robot1, mars, m, n, robot_moves)
-  
+    deployed_robots.append(robot)
+
   print("Final matrix:")
   print_matrix(mars, m, n)
+  
+  for i, robot in enumerate(deployed_robots):
+    print("Robot {} final state:".format(i+1), robot.get_state())
+
 def process_input(inputs):
   m, n = inputs[0], inputs[1]
   robots = inputs[2:]
