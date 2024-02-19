@@ -1,3 +1,4 @@
+from robot import Robot
 
 def build_matrix(m, n):
   matrix = []
@@ -15,11 +16,23 @@ def print_matrix(matrix, m, n):
       print(matrix[row][column], end=" ")
     print()
 
+def deploy_robot(matrix, robot):
+  matrix[robot.y][robot.x] = robot.orientation
+
 def main():
   m = 4
   n = 8
+  robot1_initial_state = (0, 2, 'E')
+  robot_moves = 'FLFRFF'
+
+  mars = build_matrix(m, n)
   
-  mars = build_matrix(m, n) 
+  print("Initial matrix:")
+  print_matrix(mars, m, n)
+
+  robot1 = Robot(*robot1_initial_state)
+  matrix = deploy_robot(mars, robot1)
+  print("Final matrix:")
   print_matrix(mars, m, n)
 
 if __name__ == "__main__":
