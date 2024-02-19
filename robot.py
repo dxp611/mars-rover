@@ -14,3 +14,6 @@ class Robot:
       self.y -= 1
     if self.orientation == 'W':
       self.x -= 1
+  
+  def set_lost(self):
+    self.lost = True

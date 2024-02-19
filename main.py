@@ -19,17 +19,27 @@ def print_matrix(matrix, m, n):
 def deploy_robot(matrix, robot):
   matrix[robot.y][robot.x] = robot.orientation
 
-def update_robot_position(matrix, old_x, old_y, robot):
+def update_robot_position(matrix, old_x, old_y, robot=None):
   matrix[old_y][old_x] = 0
-  matrix[robot.y][robot.x] = robot.orientation
+  if robot:
+    matrix[robot.y][robot.x] = robot.orientation
 
 def move_robot(robot, matrix, m, n, commands):
   for command in commands:
     if command == 'F':
       old_x = robot.x
       old_y = robot.y
-      robot.move_forward()
-      update_robot_position(matrix, old_x, old_y, robot)
+      if robot.orientation == 'N':
+        new_y = robot.y + 1
+        if 0 <= new_y < m:
+          robot.move_forward()
+          update_robot_position(matrix, old_x, old_y, robot)
+        else:
+          print('Robot is lost!')
+          robot.set_lost()
+          update_robot_position(matrix, old_x, old_y)
+          break
+
 
 def main():
   m = 4
@@ -39,8 +49,8 @@ def main():
   m +=1
   n +=1 
   
-  robot1_initial_state = (0, 2, 'E')
-  robot_moves = 'FLFRFF'
+  robot1_initial_state = (0, 4, 'N')
+  robot_moves = 'FF'
 
   mars = build_matrix(m, n)
   
